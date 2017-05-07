@@ -3,7 +3,7 @@ import java.util.Random;
 /**
  * Created by Olve on 07.05.2017.
  */
-public interface Dice<T> {
+public interface DiceInterface<T> {
 
     /**
      * returns the array containing two-place arrays of sides at i=0 and their frequencies at i=1.
@@ -38,7 +38,7 @@ public interface Dice<T> {
     public int getIndexOfSide(T side);
 
     /**
-     * returns the amount of times a given side has come up during the lifetime of this Dice instance
+     * returns the amount of times a given side has come up during the lifetime of this DiceInterface instance
      * @param side is the side that we would like to check the frequency of
      * @return the frequency of the specified side
      */

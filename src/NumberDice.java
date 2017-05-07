@@ -1,10 +1,9 @@
-import java.util.Arrays;
 import java.util.Random;
 
 /**
  * Created by Olve on 07.05.2017.
  */
-public class NumberDice implements Dice<Integer> {
+public class NumberDice implements DiceInterface<Integer> {
     Integer[][] sides = {{1,0},{2,0},{3,0},{4,0},{5,0},{6,0}};
     int UPPER_RANGE;
 
@@ -13,7 +12,7 @@ public class NumberDice implements Dice<Integer> {
     }
 
     /**
-     * returns the amount of times a given side has come up during the lifetime of this Dice instance
+     * returns the amount of times a given side has come up during the lifetime of this DiceInterface instance
      *
      * @param side is the side that we would like to check the frequency of
      * @return the frequency of the specified side
