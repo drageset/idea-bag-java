@@ -1,14 +1,21 @@
 import java.util.Random;
 
 /**
+ * A dice with 6 sides by default, each side being a number
  * Created by Olve on 07.05.2017.
  */
 public class NumberDice implements DiceInterface<Integer> {
-    Integer[][] sides = {{1,0},{2,0},{3,0},{4,0},{5,0},{6,0}};
-    int UPPER_RANGE;
+    private Object[][] sidesAndFrequencies = {{1,0},{2,0},{3,0},{4,0},{5,0},{6,0}};
 
     public NumberDice() {
-        UPPER_RANGE = sides.length-1;
+    }
+
+    /**
+     * Construct a custom dice with any amount of sides that are integers
+     * @param sides must be a non-empty array of integers
+     */
+    public NumberDice(Object[] sides){
+        setSides(sides);
     }
 
     /**
@@ -18,20 +25,24 @@ public class NumberDice implements DiceInterface<Integer> {
      * @return the frequency of the specified side
      */
     public int getFrequencyOfSide(Integer side){
-        for (int i = 0; i < sides.length; i++) {
-            if(sides[i][0].equals(side)){
-                return sides[i][1];
+        for (Object[] sideFrequencyPair : sidesAndFrequencies){
+            if (sideFrequencyPair[0].equals(side)){
+                return (Integer) sideFrequencyPair[1];
             }
         }
         return -1;
     }
 
     /**
-     * returns the array containing two-place arrays of sides at i=0 and their frequencies at i=1.
+     * returns the array containing two-place arrays of sidesAndFrequencies at i=0 and their frequencies at i=1.
      * @return array of side-frequency pairs in arrays
      */
-    public Integer[][] getSides() {
-        return sides;
+    public Object[] getSides() {
+        Object[] sidesOnly = new Object[sidesAndFrequencies.length];
+        for (int i = 0; i < sidesAndFrequencies.length; i++) {
+            sidesOnly[i] = sidesAndFrequencies[i][0];
+        }
+        return sidesOnly;
     }
 
 
@@ -42,7 +53,7 @@ public class NumberDice implements DiceInterface<Integer> {
      * @param side  that we wish to insert at given index
      */
     public void setSide(int index, Integer side) {
-        sides[index][0] = side;
+        sidesAndFrequencies[index][0] = side;
     }
 
     /**
@@ -51,7 +62,7 @@ public class NumberDice implements DiceInterface<Integer> {
      * @param index which we wish to retrieve a side from
      */
     public Integer getSide(int index) {
-        return sides[index][0];
+        return (Integer) sidesAndFrequencies[index][0];
     }
 
     /**
@@ -61,8 +72,8 @@ public class NumberDice implements DiceInterface<Integer> {
      * @return the index of side, given that it exists. Otherwise -1.
      */
     public int getIndexOfSide(Integer side) {
-        for (int i = 0; i < sides.length; i++) {
-            if(sides[i].equals(side)){
+        for (int i = 0; i < sidesAndFrequencies.length; i++) {
+            if(sidesAndFrequencies[i][0].equals(side)){
                 return i;
             }
         }
@@ -70,12 +81,20 @@ public class NumberDice implements DiceInterface<Integer> {
     }
 
     /**
-     * Setter for the array of side-frequency pairs
-     *
-     * @param sides
+     * Setts new sides for the dice, and resets the frequency counters
+     * @param newSides is a full array of at least one new side(s) that should be of same type T as the old sides.
+     * @throws IllegalArgumentException is thrown if the type of the sides in newSides array does not match the type of the old sides.
      */
-    public void setSides(Integer[][] sides) {
-        this.sides = sides;
+    public void setSides(Object[] newSides) throws IllegalArgumentException {
+        Object[][] sidesAndFrequencies = new Object[newSides.length][2]; //creates a fresh side dice representation that fits our new sides perfectly
+        for (int i = 0; i < newSides.length; i++) {
+            if (newSides[i].getClass().equals(getSide(0).getClass())){ //checks if the class of the new side is the same as the class of the first item in the array. This is sufficient for maintaining the dice type.
+                throw new IllegalArgumentException("Class of the side(s) in the array given as argument does not match the type of the dice");
+            }
+            sidesAndFrequencies[i][0] = newSides[i]; //sets the new side
+            sidesAndFrequencies[i][1] = 0; //sets the frequency of the side
+        }
+        this.sidesAndFrequencies = sidesAndFrequencies;
     }
 
     /**
@@ -84,17 +103,10 @@ public class NumberDice implements DiceInterface<Integer> {
      */
     public Integer throwDice(){
         Random random = new Random();
+        int UPPER_RANGE = sidesAndFrequencies.length-1;
         int diceThrow = random.nextInt(UPPER_RANGE);
-        sides[diceThrow][1]++; //increments the frequency of this particular side showing
-        return sides[diceThrow][0]; //returns the showing side
+        int freq = (Integer) sidesAndFrequencies[diceThrow][1]; //increments the frequency of this particular side showing
+        sidesAndFrequencies[diceThrow][1] = freq+1;
+        return (Integer) sidesAndFrequencies[diceThrow][0]; //returns the showing side
     }
-
-    private static int findIndex(Object item, Object[] array){
-        for (int i = 0; i < array.length; i++) {
-            if(array[i].equals(item)){
-                return i;
-            }
-        }
-        return -1;
-    }
-}
+} // end of NumDice class

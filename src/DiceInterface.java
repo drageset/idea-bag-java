@@ -1,21 +1,19 @@
-import java.util.Random;
-
 /**
  * Created by Olve on 07.05.2017.
  */
 public interface DiceInterface<T> {
 
     /**
-     * returns the array containing two-place arrays of sides at i=0 and their frequencies at i=1.
-     * @return array of side-frequency pairs in arrays
+     * returns the array containing the sidesAndFrequencies of the dice.
+     * @return array of the sidesAndFrequencies of the dice
      */
-    public Object[][] getSides();
+    public Object[] getSides();
 
     /**
-     * Setter for the array of side-frequency pairs
-     * @param sides
+     * Sets the sidesAndFrequencies of the dice to be those contained in the input array. Frequencies are not reset.
+     * @param sides is an array containing the new sidesAndFrequencies of the dice
      */
-    public void setSides(T[][] sides);
+    public void setSides(Object[] sides);
 
     /**
      * sets the side at a particular index in the side-frequency array
