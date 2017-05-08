@@ -104,9 +104,12 @@ public class NumberDice implements DiceInterface<Integer> {
     public Integer throwDice(){
         Random random = new Random();
         int UPPER_RANGE = sidesAndFrequencies.length-1;
-        int diceThrow = random.nextInt(UPPER_RANGE);
-        int freq = (Integer) sidesAndFrequencies[diceThrow][1]; //increments the frequency of this particular side showing
-        sidesAndFrequencies[diceThrow][1] = freq+1;
-        return (Integer) sidesAndFrequencies[diceThrow][0]; //returns the showing side
+        int randomArrayIndex = random.nextInt(UPPER_RANGE);
+        Object[] sideFrequencyPair = sidesAndFrequencies[randomArrayIndex];
+        Integer side = (Integer) sideFrequencyPair[0];
+        Integer frequency = (Integer) sideFrequencyPair[1];
+        sideFrequencyPair[1] = frequency+1; //increments the frequency of the particular side showing
+        return side; //returns the value of the showing side
     }
+
 } // end of NumDice class
