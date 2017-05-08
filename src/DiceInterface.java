@@ -4,14 +4,14 @@
 public interface DiceInterface<T> {
 
     /**
-     * returns the array containing the sidesAndFrequencies of the dice.
-     * @return array of the sidesAndFrequencies of the dice
+     * returns the array containing the dice of the dice.
+     * @return array of the dice of the dice
      */
     public Object[] getSides();
 
     /**
-     * Sets the sidesAndFrequencies of the dice to be those contained in the input array. Frequencies are not reset.
-     * @param sides is an array containing the new sidesAndFrequencies of the dice
+     * Sets the dice of the dice to be those contained in the input array. Frequencies are not reset.
+     * @param sides is an array containing the new dice of the dice
      */
     public void setSides(Object[] sides);
 

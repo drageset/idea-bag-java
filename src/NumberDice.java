@@ -34,7 +34,7 @@ public class NumberDice implements DiceInterface<Integer> {
     }
 
     /**
-     * returns the array containing two-place arrays of sidesAndFrequencies at i=0 and their frequencies at i=1.
+     * returns the array containing two-place arrays of dice at i=0 and their frequencies at i=1.
      * @return array of side-frequency pairs in arrays
      */
     public Object[] getSides() {
@@ -110,6 +110,13 @@ public class NumberDice implements DiceInterface<Integer> {
         Integer frequency = (Integer) sideFrequencyPair[1];
         sideFrequencyPair[1] = frequency+1; //increments the frequency of the particular side showing
         return side; //returns the value of the showing side
+    }
+
+    private class DiceSide<T>{
+
+        DiceSide(T value, int frequency){
+
+        }
     }
 
 } // end of NumDice class
