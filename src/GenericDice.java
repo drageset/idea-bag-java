@@ -3,23 +3,64 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * A dice that can have values of any type, as long as all the values are of the same type.
- * You can add and remove sides from the dice.
+ * A diceSides that can have values of any type, as long as all the values are of the same type.
+ * You can add and remove sides from the diceSides.
  * A side has both a value and a frequency.
- * The value of the side is "the thing you see" on a physical dice,
+ * The value of the side is "the thing you see" on a physical diceSides,
  * while the frequency is the amount of times this side has been rolled.
  * Created by Olve on 08.05.2017.
  */
 public class GenericDice<T> {
 
-    private List<DiceSide<T>> dice = new ArrayList<DiceSide<T>>(6);
+    private List<DiceSide<T>> diceSides = new ArrayList<DiceSide<T>>(6);
 
     public GenericDice(ArrayList<T> sides){
-        setSides(sides);
+        setValues(sides);
     }
 
-    public GenericDice(List<DiceSide<T>> diceSideList){
-        dice = diceSideList;
+    public GenericDice(List<DiceSide<T>> newDiceSides){
+        diceSides = newDiceSides;
+    }
+
+    /**
+     * Give the diceSides a new set of sides, and set frequencies to 0, making the diceSides completely fresh.
+     * @param newSideValues is a List of values
+     */
+    public void setValues(List<T> newSideValues) {
+        List<DiceSide<T>> newDice = new ArrayList<DiceSide<T>>(newSideValues.size());
+        for (T sideValue : newSideValues){
+            DiceSide<T> side = new DiceSide<T>(sideValue);
+            newDice.add(side);
+        }
+        this.diceSides = newDice;
+    }
+
+    /**
+     * returns a List with the values that are on the sides of the diceSides
+     * @return arraylist of the sides of the diceSides
+     */
+    public List<T> getSideValues() {
+        List<T> sidesOnly = new ArrayList<T>(diceSides.size());
+        for (DiceSide<T> side : diceSides) {
+            sidesOnly.add(side.getValue());
+        }
+        return sidesOnly;
+    }
+
+    /**
+     * Lets you initialize the diceSides with a list of custom diceSides sides that can have non-zero frequencies
+     * @param newDiceSides is a list of DiceSides that are to be the new sides of the diceSides.
+     */
+    public void setDiceSides(List<DiceSide<T>> newDiceSides) {
+        this.diceSides = newDiceSides;
+    }
+
+    /**
+     * Adds a new side to the diceSides, with the specified value, and a frequency of 0
+     * @param sideValue
+     */
+    public void addSide(T sideValue){
+        diceSides.add(new DiceSide<T>(sideValue));
     }
 
     /**
@@ -29,7 +70,7 @@ public class GenericDice<T> {
      */
     public int getFrequencyOfRoll(T sideValue){
         int frequency = 0;
-        for (DiceSide<T> diceSide : dice) {
+        for (DiceSide<T> diceSide : diceSides) {
             if (diceSide.getValue().equals(sideValue)){
                 frequency += diceSide.getFrequency();
             }
@@ -38,55 +79,14 @@ public class GenericDice<T> {
     }
 
     /**
-     * Adds a new side to the dice, with the specified value, and a frequency of 0
-     * @param sideValue
-     */
-    public void addSide(T sideValue){
-        dice.add(new DiceSide<T>(sideValue));
-    }
-
-    /**
-     * returns a List with the values that are on the sides of the dice
-     * @return arraylist of the sides of the dice
-     */
-    public List<T> getSideValues() {
-        List<T> sidesOnly = new ArrayList<T>(dice.size());
-        for (DiceSide<T> side : dice) {
-            sidesOnly.add(side.getValue());
-        }
-        return sidesOnly;
-    }
-
-    /**
-     * Give the dice a new set of sides, and set frequencies to 0, making the dice completely fresh.
-     * @param newSideValues is a List of values
-     */
-    public void setSides(List<T> newSideValues) {
-        List<DiceSide<T>> newDice = new ArrayList<DiceSide<T>>(newSideValues.size());
-        for (T sideValue : newSideValues){
-            DiceSide<T> side = new DiceSide<T>(sideValue);
-            newDice.add(side);
-        }
-        this.dice = newDice;
-    }
-
-    /**
-     * Lets you initialize the dice with a list of custom dice sides that can have non-zero frequencies
-     * @param newDiceSides is a list of DiceSides that are to be the new sides of the dice.
-     */
-    public void setDice(List<DiceSide<T>> newDiceSides) {
-        this.dice = newDiceSides;
-    }
-
-    /**
-     * Throw the dice, which will turn up a side on the dice and increment the frequency counter for that side
+     * Throw the diceSides, which will turn up a side on the diceSides and increment the frequency counter for that side
      * @return the side that has turned up.
      */
     public T throwDice(){
         Random random = new Random();
-        int UPPER_RANGE = dice.size()-1;
+        int UPPER_RANGE = diceSides.size()-1;
         int randomArrayIndex = random.nextInt(UPPER_RANGE);
-        DiceSide<T> diceSide = dice.get(randomArrayIndex);
+        DiceSide<T> diceSide = diceSides.get(randomArrayIndex);
         diceSide.incrementFrequency();
         return diceSide.getValue(); //returns the value of the showing side
     }
@@ -97,7 +97,7 @@ public class GenericDice<T> {
 //     * @param updatedSideValue the side value to replace the old value
 //     */
 //    public void replaceSideValue(T oldSideValue, T updatedSideValue){
-//        for (DiceSide<T> diceSide : dice) {
+//        for (DiceSide<T> diceSide : diceSides) {
 //            if (diceSide.getValue().equals(oldSideValue)){
 //                diceSide.setValue(updatedSideValue);
 //                break;
@@ -110,9 +110,9 @@ public class GenericDice<T> {
 //     * @return
 //     */
 //    public int indexOf(T targetSideValue) {
-//        for (DiceSide<T> diceSide : dice) {
+//        for (DiceSide<T> diceSide : diceSides) {
 //            if (diceSide.getValue().equals(targetSideValue)){
-//                return dice.indexOf(diceSide);
+//                return diceSides.indexOf(diceSide);
 //            }
 //        }
 //        return -1;
@@ -120,7 +120,7 @@ public class GenericDice<T> {
 
     /**
      * This list node-type class stores a value, and the frequency.
-     * The value of the side is "the thing you see" on a physical dice,
+     * The value of the side is "the thing you see" on a physical diceSides,
      * while the frequency of the side is the amount of times this side has been rolled.
      * @param <T> is the type of the Dice, meaning the type of stuff that is on all the diceSides
      */
