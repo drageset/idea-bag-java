@@ -91,6 +91,24 @@ public class GenericDice<T> {
         return diceSide.getValue(); //returns the value of the showing side
     }
 
+    /**
+     * Find the index of a side with a certain value
+     * @param targetSideValue
+     * @return
+     */
+    public int indexOf(T targetSideValue) {
+        for (DiceSide<T> diceSide : diceSides) {
+            if (diceSide.getValue().equals(targetSideValue)){
+                return diceSides.indexOf(diceSide);
+            }
+        }
+        return -1;
+    }
+
+    public void replaceSideValueAtIndex(int index, T updatedSideValue){
+        diceSides.get(index).setValue(updatedSideValue);
+    }
+
 //    /**
 //     * Replace the value of exactly one side with the given value
 //     * @param oldSideValue the side value to be replaced
@@ -103,19 +121,6 @@ public class GenericDice<T> {
 //                break;
 //            }
 //        }
-//    }
-//    /**
-//     * Find the index of a side with a certain value
-//     * @param targetSideValue
-//     * @return
-//     */
-//    public int indexOf(T targetSideValue) {
-//        for (DiceSide<T> diceSide : diceSides) {
-//            if (diceSide.getValue().equals(targetSideValue)){
-//                return diceSides.indexOf(diceSide);
-//            }
-//        }
-//        return -1;
 //    }
 
     /**
