@@ -3,14 +3,14 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * A diceSides that can have values of any type, as long as all the values are of the same type.
- * You can add and remove sides from the diceSides.
+ * A generically typed dice, which means you can choose the type of values that are shown on the sides, as long as all the values are of the same type.
+ * You can add and remove sides from the dice.
  * A side has both a value and a frequency.
  * The value of the side is "the thing you see" on a physical diceSides,
  * while the frequency is the amount of times this side has been rolled.
  * Created by Olve on 08.05.2017.
  */
-public class GenericDice<T> {
+public class GenericDice<T> implements DiceInterface<T>{
 
     private List<DiceSide<T>> diceSides = new ArrayList<DiceSide<T>>(6);
 
@@ -39,7 +39,7 @@ public class GenericDice<T> {
      * returns a List with the values that are on the sides of the diceSides
      * @return arraylist of the sides of the diceSides
      */
-    public List<T> getSideValues() {
+    public List<T> getValues() {
         List<T> sidesOnly = new ArrayList<T>(diceSides.size());
         for (DiceSide<T> side : diceSides) {
             sidesOnly.add(side.getValue());
@@ -64,11 +64,19 @@ public class GenericDice<T> {
     }
 
     /**
-     * returns the cumulative frequency of sides that currently have a certain value.
+     * Remove a side with a given value
+     * @param sideValue is the value that you wish to remove a side that has
+     */
+    public void removeSide(T sideValue){
+        diceSides.remove(indexOf(sideValue));
+    }
+
+    /**
+     * returns the cumulative frequency of all sides that currently have a certain value sideValue.
      * @param sideValue : We return the added frequency off all sides that currently hold this value.
      * @return the frequency of all the sides that have the value sideValue, combined.
      */
-    public int getFrequencyOfRoll(T sideValue){
+    public int getFrequencyOfValue(T sideValue){
         int frequency = 0;
         for (DiceSide<T> diceSide : diceSides) {
             if (diceSide.getValue().equals(sideValue)){
@@ -79,8 +87,8 @@ public class GenericDice<T> {
     }
 
     /**
-     * Throw the diceSides, which will turn up a side on the diceSides and increment the frequency counter for that side
-     * @return the side that has turned up.
+     * Throw the dice, which will turn up a side on the dice and increment the frequency counter for that side
+     * @return the value of the side that has turned up.
      */
     public T throwDice(){
         Random random = new Random();
@@ -92,9 +100,9 @@ public class GenericDice<T> {
     }
 
     /**
-     * Find the index of a side with a certain value
-     * @param targetSideValue
-     * @return
+     * Find the index of the first side with athe given value
+     * @param targetSideValue the value that you wish to find the index of a side that has
+     * @return the index of a side with this value
      */
     public int indexOf(T targetSideValue) {
         for (DiceSide<T> diceSide : diceSides) {
@@ -105,23 +113,52 @@ public class GenericDice<T> {
         return -1;
     }
 
-    public void replaceSideValueAtIndex(int index, T updatedSideValue){
-        diceSides.get(index).setValue(updatedSideValue);
+    /**
+     * replaces the value at a certain index of the dice
+     * @param index of the side that you wish to update the value of
+     * @param updatedSideValue is the value that you wish to assign the side at index.
+     * @return true if operation successfull, false if index out of bounds or no dice side at index.
+     */
+    public boolean setSideValue(int index, T updatedSideValue){
+        if(diceSides.size() > index && diceSides.get(index) != null) {
+            diceSides.get(index).setValue(updatedSideValue);
+            return true;
+        }
+        return false;
     }
 
-//    /**
-//     * Replace the value of exactly one side with the given value
-//     * @param oldSideValue the side value to be replaced
-//     * @param updatedSideValue the side value to replace the old value
-//     */
-//    public void replaceSideValue(T oldSideValue, T updatedSideValue){
-//        for (DiceSide<T> diceSide : diceSides) {
-//            if (diceSide.getValue().equals(oldSideValue)){
-//                diceSide.setValue(updatedSideValue);
-//                break;
-//            }
-//        }
-//    }
+    /**
+     * get the value of the side at this index
+     * @param index which we wish to retrieve the side value from
+     * @return the value of the side at the given index
+     */
+    public T getSideValue(int index){
+        return diceSides.get(index).getValue();
+    }
+
+    /**
+     * get the frequency of the side at the given index
+     * @param index which we wish to retrieve the frequency of
+     * @return the amount of times this side has been rolled (frequency)
+     */
+    public int getSideFrequency(int index){
+        return diceSides.get(index).getFrequency();
+    }
+
+    /**
+     * Replaces the value of the first side that matches oldSideValue with the value of newSideValue
+     * @param oldSideValue
+     * @param updatedSideValue
+     * @return true if oldSideValue was a value on any side of the dice and was replaced by updatedSideValue, false otherwise.
+     */
+    public boolean replaceSideValue(T oldSideValue, T updatedSideValue){
+        int index = indexOf(oldSideValue);
+        if (index > -1) { // if any side on the dice has value oldSideValue
+            setSideValue(index, updatedSideValue);
+            return true;
+        }
+        return false;
+    }
 
     /**
      * This list node-type class stores a value, and the frequency.

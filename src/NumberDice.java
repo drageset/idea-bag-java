@@ -4,7 +4,7 @@ import java.util.Random;
  * A dice with 6 sides by default, each side being a number
  * Created by Olve on 07.05.2017.
  */
-public class NumberDice implements DiceInterface<Integer> {
+public class NumberDice {
     private Object[][] sidesAndFrequencies = {{1,0},{2,0},{3,0},{4,0},{5,0},{6,0}};
 
     public NumberDice() {
@@ -50,10 +50,10 @@ public class NumberDice implements DiceInterface<Integer> {
      * sets the side at a particular index in the side-frequency array
      *
      * @param index where we wish to insert the side
-     * @param side  that we wish to insert at given index
+     * @param value  that we wish to insert at given index
      */
-    public void setSide(int index, Integer side) {
-        sidesAndFrequencies[index][0] = side;
+    public void setSide(int index, Integer value) {
+        sidesAndFrequencies[index][0] = value;
     }
 
     /**
