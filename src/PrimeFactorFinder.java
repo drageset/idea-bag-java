@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Olve on 08.05.2017.
+ * This class finds prime factors of positive integers
  */
 public class PrimeFactorFinder {
     public static void main(String[] args) {
@@ -79,6 +79,11 @@ public class PrimeFactorFinder {
         return primeList;
     }
 
+    /**
+     * This method checks whether a number is prime or not
+     * @param integer to check if is prime or not
+     * @return true if prime, false if not
+     */
      public static boolean isPrime(int integer){
         boolean prime = true;
          for (int i = 2; i < integer; i++) { // test that all the numbers are prime numbers
