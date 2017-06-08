@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * An app for calculating factorials of non-negative integers supplied by the user.
+ * A console app for calculating factorials of non-negative integers supplied by the user.
  */
 public class FactorialFinder {
     public static void main(String[] args) {
@@ -13,7 +13,7 @@ public class FactorialFinder {
             try {
                 System.out.println("Please enter a non-negative integer, or type 'exit' to end the session:");
                 String userInput = br.readLine();
-                if (userInput.equals("exit")){
+                if (userInput.equals("exit")) {
                     System.out.println("Thank you for using the factorial calculator! Goodbye!");
                     System.exit(0);
                 } else {
@@ -30,10 +30,11 @@ public class FactorialFinder {
 
     /**
      * Calculates the factorial (!input) of an input non-negative int through an iterative process
+     *
      * @param input must be a non-negative integer
      * @return an integer that is the !factorial of the input
      */
-    public static int calculateFactorialIteratively(int input){
+    public static int calculateFactorialIteratively(int input) {
         int factorial = 1;
         for (int i = input; i > 0; i--) {
             factorial *= i;
@@ -43,14 +44,15 @@ public class FactorialFinder {
 
     /**
      * Calculates the factorial (!input) of an input non-negative int through recursive calls
+     *
      * @param input must be a non-negative integer
      * @return an integer that is the !factorial of the input
      */
-    public static int calculateFactorialRecursively(int input){
-        if(input == 0){
+    public static int calculateFactorialRecursively(int input) {
+        if (input == 0) {
             return 1;
         } else {
-            return input*calculateFactorialRecursively(input-1);
+            return input * calculateFactorialRecursively(input - 1);
         }
     }
 
