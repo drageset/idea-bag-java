@@ -1,6 +1,6 @@
-import java.util.List;
+import primes.PrimeFactorFinder;
 
-import static org.junit.Assert.*;
+import java.util.List;
 
 /**
  * Created by Olve on 09.05.2017.
