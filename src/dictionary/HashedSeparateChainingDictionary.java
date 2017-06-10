@@ -1,18 +1,22 @@
 package dictionary;
 
-
 import primes.PrimeFinder;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This hash table uses separate chaining and implements the Dictionary/Map ADT
+ * @param <K> is the type of the keys
+ * @param <V> is the type of the values
+ * @author Olve Drageset
+ */
 public class HashedSeparateChainingDictionary<K,V> implements DictionaryInterface<K,V> {
 
     List<List<TableEntry<K,V>>> hashTable;
     private static final int DEFAULTSIZE = 97; //97 is a prime, so it's a good default size for hash functions using size
-    private static final double MAXLOAD = 0.5;
+    private static final double LOADFACTOR = 0.5;
     int size;
     int currentNumOfEntries;
 
@@ -22,13 +26,25 @@ public class HashedSeparateChainingDictionary<K,V> implements DictionaryInterfac
     }
 
     public HashedSeparateChainingDictionary(int size) {
-        this.size = PrimeFinder.nextPrime(size); //reduce collisions by using a prime as size, since hash function is based on size
-        hashTable = new ArrayList<>(this.size);
+        size = PrimeFinder.nextPrime(size); //reduce collisions by using a prime as size, since hash function is based on size
+        this.size = size;
+        hashTable = newHashTable(this.size);
         currentNumOfEntries = 0;
+    }
+
+    /**
+     * Creates a new hash table with a size equal to the first prime larger than or equal to the int given as parameter
+     * @param size is the number from which we wil search upwards for the first prime
+     * @return a new hash table of size larger than or equal to the parameter
+     */
+    private List<List<TableEntry<K,V>>> newHashTable(int size) {
+        this.size = PrimeFinder.nextPrime(size); //reduce collisions by using a prime as size, since hash function is based on size
+        List<List<TableEntry<K,V>>> newHashTable = new ArrayList<>(this.size);
         //Create the buckets
         for (int i = 0; i < this.size ; i++) {
-            hashTable.add(i, new LinkedList<>());
+            newHashTable.add(i, new LinkedList<>());
         }
+        return newHashTable;
     }
 
     /**
@@ -45,57 +61,117 @@ public class HashedSeparateChainingDictionary<K,V> implements DictionaryInterfac
         return index;
     }
 
+    /**
+     * Resize the hash table by a factor specified
+     * @param factor of resize
+     */
+    private void resize(int factor) {
+        List<List<TableEntry<K,V>>> oldHashTable = hashTable;
+        hashTable = newHashTable(size*factor);
+        size = hashTable.size();
+        currentNumOfEntries = 0;
+        //grab all values from the old buckets and add them again
+        for (List<TableEntry<K, V>> bucket : oldHashTable) {
+            for (TableEntry<K, V> tableEntry : bucket) {
+                add(tableEntry.key, tableEntry.value);
+            }
+        }
+    }
+
     @Override
     public V add(K key, V value) {
-        return null;
+        int indexOfBucket = hashFunction(key);
+        TableEntry<K,V> newEntry = new TableEntry<>(key, value);
+        V oldEntry = remove(key); //resolves duplicate entries by deleting the old value if there is one
+        hashTable.get(indexOfBucket).add(newEntry);
+        if (oldEntry == null){
+            currentNumOfEntries++;
+        }
+        if (currentNumOfEntries > (size * LOADFACTOR)) {
+            resize(2);
+        }
+        return oldEntry;
     }
 
     @Override
     public V remove(K key) {
-        // TODO Auto-generated method stub
+        int indexOfBucket = hashFunction(key);
+        List<TableEntry<K,V>> bucket = hashTable.get(indexOfBucket);
+        for (TableEntry<K,V> tableEntry : bucket) {
+            if (tableEntry.getKey().equals(key)){
+                bucket.remove(tableEntry);
+                return tableEntry.getValue();
+            }
+        }
         return null;
     }
 
     @Override
     public V getValue(K key) {
-        // TODO Auto-generated method stub
+        int indexOfBucket = hashFunction(key);
+        List<TableEntry<K,V>> bucket = hashTable.get(indexOfBucket);
+        for (TableEntry<K,V> tableEntry : bucket) {
+            if (tableEntry.getKey().equals(key)){
+                return tableEntry.getValue();
+            }
+        }
         return null;
     }
 
     @Override
     public boolean contains(K key) {
-        // TODO Auto-generated method stub
+        int indexOfBucket = hashFunction(key);
+        List<TableEntry<K,V>> bucket = hashTable.get(indexOfBucket);
+        for (TableEntry<K,V> tableEntry : bucket) {
+            if (tableEntry.getKey().equals(key)){
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public Iterator<K> getKeyIterator() {
-        // TODO Auto-generated method stub
-        return null;
+        List<K> keyList = new ArrayList<>(currentNumOfEntries);
+        for (List<TableEntry<K, V>> bucket : hashTable) {
+            for (TableEntry<K, V> tableEntry : bucket) {
+                keyList.add(tableEntry.key);
+            }
+        }
+        return keyList.iterator();
     }
 
     @Override
     public Iterator<V> getValueIterator() {
-        // TODO Auto-generated method stub
-        return null;
+        List<V> valueList = new ArrayList<>(currentNumOfEntries);
+        for (List<TableEntry<K, V>> bucket : hashTable) {
+            for (TableEntry<K, V> tableEntry : bucket) {
+                valueList.add(tableEntry.value);
+            }
+        }
+        return valueList.iterator();
     }
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        return false;
+        for (List<TableEntry<K, V>> bucket : hashTable) {
+            if (!bucket.isEmpty()){
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public int getSize() {
-        // TODO Auto-generated method stub
-        return 0;
+        return currentNumOfEntries;
     }
 
     @Override
     public void clear() {
-        // TODO Auto-generated method stub
-
+        hashTable = newHashTable(DEFAULTSIZE);
+        size = hashTable.size();
+        currentNumOfEntries = 0;
     }
 
     private class TableEntry<K,V>{
