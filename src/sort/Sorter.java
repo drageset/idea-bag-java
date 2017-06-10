@@ -56,8 +56,9 @@ public class Sorter {
     }
 
     /**
-     * Default Bubble Sort of any type array, uses the iterative implementation of Bubble Sort
-     * This method is overloaded, the other implementation allows you to specify to use recursive implementation
+     * Default Bubble Sort of any type array, uses the iterative implementation of Bubble Sort.
+     * This method is overloaded,
+     * the other implementation allows you to specify whether to use the recursive or the iterative implementation
      *
      * @param array of any type you want to have sorted
      * @return a sorted array of same type you gave it, with time complexity O(n^2)
