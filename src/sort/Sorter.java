@@ -6,6 +6,7 @@ import java.util.Deque;
 /**
  * This class lets the user access the functionality of all the sorting classes in the sort package
  * as simply as possible.
+ * @author drageset
  */
 public class Sorter {
 

@@ -2,6 +2,7 @@ package sort;
 
 /**
  * This class is responsible for methods pertaining to Bubble Sorting
+ * @author drageset
  */
 class BubbleSorter {
 

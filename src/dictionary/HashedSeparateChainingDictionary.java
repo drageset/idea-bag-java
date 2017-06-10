@@ -10,7 +10,7 @@ import java.util.List;
  * This hash table uses separate chaining and implements the Dictionary/Map ADT
  * @param <K> is the type of the keys
  * @param <V> is the type of the values
- * @author Olve Drageset
+ * @author drageset
  */
 public class HashedSeparateChainingDictionary<K,V> implements DictionaryInterface<K,V> {
 

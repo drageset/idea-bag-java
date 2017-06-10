@@ -2,6 +2,7 @@ package sort;
 
 /**
  * This class is responsible for methods pertaining to Merge Sorting
+ * @author drageset
  */
 class MergeSorter {
 

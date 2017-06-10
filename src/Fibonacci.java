@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * This class runs a console app for getting fibonacci numbers and sequences.
+ * @author drageset
  */
 public class Fibonacci {
     public static void main(String[] args) {

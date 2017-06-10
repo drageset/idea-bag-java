@@ -3,6 +3,10 @@ package primes;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is for finding prime numbers
+ * @author drageset
+ */
 public class PrimeFinder {
 
     /**

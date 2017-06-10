@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * This class finds prime factors of positive integers
+ * @author drageset
  */
 public class PrimeFactorFinder {
     public static void main(String[] args) {

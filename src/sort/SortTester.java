@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * This class is responsible for the handling of unit tests for the sort package
+ * @author drageset
  */
 class SortTester {
 

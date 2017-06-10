@@ -5,6 +5,7 @@ import java.util.Deque;
 
 /**
  * This class is responsible for radix sorting deques of non-negative Integers
+ * @author drageset
  */
 class RadixSorter {
 
