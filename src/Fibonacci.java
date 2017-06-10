@@ -1,5 +1,3 @@
-import com.sun.org.apache.xpath.internal.SourceTree;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,13 +28,13 @@ public class Fibonacci {
                     menuSelectionInt = Integer.parseInt(input);
                     switch (menuSelectionInt) {
                         case 1:
-                            findFibN();
+                            findFibN(); //new menu for finding the n first fibonacci numbers
                             break;
                         case 2:
                             System.out.println("How many fibonacci number should we find?");
                             input = br.readLine();
                             int n = Integer.parseInt(input);
-                            List<Integer> fibList = findFibSec(n);
+                            List<Integer> fibList = findFibSequence(n);
                             printIntList(fibList); //prints the list of fibonacci numbers on a single line
                             break;
                         case 3:
@@ -57,6 +55,9 @@ public class Fibonacci {
 
     }//end main
 
+    /**
+     * separates the menu for finding the n first fibonacci numbers from the main menu
+     */
     private static void findFibN() {
         boolean quit = false;
         int n;
@@ -71,7 +72,7 @@ public class Fibonacci {
                 } else {
                     n = Integer.parseInt(input);
                     if (n >= 1) {
-                        System.out.println("Fib number " + n + " is " + fib(n));
+                        System.out.println("Fib number " + n + " is " + fibN(n));
                     } else {
                         System.out.println("Please give an integer larger than 0");
                     }
@@ -90,7 +91,7 @@ public class Fibonacci {
      * @param n is the index of the fibonacci number you want to return
      * @return the fibonacci number at index n
      */
-    private static int fib(int n) {
+    public static int fibN(int n) {
         int last = 1;
         int secondLast = 0;
         for (int i = 2; i < n; i++) {
@@ -106,7 +107,7 @@ public class Fibonacci {
      * @param n is the length of the fibonacci sequence you want to return
      * @return a list of Integers in the fibonacci sequence of length n
      */
-    private static List<Integer> findFibSec(int n) {
+    public static List<Integer> findFibSequence(int n) {
         List<Integer> fibList = new ArrayList<>(n);
         int last = 1;
         int secondLast = 0;
