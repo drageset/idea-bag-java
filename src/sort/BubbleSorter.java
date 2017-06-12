@@ -1,7 +1,7 @@
 package sort;
 
 /**
- * This class is responsible for methods pertaining to Bubble Sorting
+ * This class is responsible for methods pertaining to Bubble Sorting, a very ineffective O(n^2) algo
  * @author drageset
  */
 class BubbleSorter {

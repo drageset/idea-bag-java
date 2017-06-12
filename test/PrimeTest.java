@@ -4,9 +4,10 @@ import primes.PrimeFinder;
 import java.util.List;
 
 /**
- * Created by Olve on 09.05.2017.
+ * Test class for the prime package
+ * @author drageset
  */
-public class PrimeFactorFinderTest {
+public class PrimeTest {
 //    @org.junit.Test
 //    public void primeFactorize() throws Exception {
 //    }
