@@ -1,7 +1,7 @@
 package sort;
 
 import java.util.Arrays;
-import java.util.Deque;
+import java.util.Queue;
 
 /**
  * This class lets the user access the functionality of all the sorting classes in the sort package
@@ -23,7 +23,7 @@ public class Sorter {
      * @param maxLength of the integers in the deque.
      * @return a sorted deque.
      */
-    public static Deque<Integer> radixSort(Deque<Integer> deque, int maxLength){
+    public static Queue<Integer> radixSort(Queue<Integer> deque, int maxLength){
         return RadixSorter.radixSort(deque, maxLength);
     }
 
@@ -66,5 +66,25 @@ public class Sorter {
      */
     public static <T extends Comparable<? super T>> T[] bubbleSort(T[] array) {
         return BubbleSorter.iterativeBubbleSort(array);
+    }
+
+    /**
+     * Performs an insertion sort on the array of comparable objects given
+     * @param array of comparable objects
+     * @param <T> extends comparable ? super T
+     * @return sorted array
+     */
+    public static <T extends Comparable<? super T>> T[] insertionSort(T[] array){
+        return InsertionSorter.insertionSort(array);
+    }
+
+    /**
+     * Performs a selection sort on the array of comparable objects given
+     * @param array of comparable objects
+     * @param <T> extends comparable ? super T
+     * @return sorted array
+     */
+    public static <T extends Comparable<? super T>> T[] selectionSort(T[] array){
+        return SelectionSorter.selectionSort(array);
     }
 }

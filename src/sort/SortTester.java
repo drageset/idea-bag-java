@@ -15,12 +15,12 @@ class SortTester {
 
     @Test
     public void recursiveRadixSortTest() {
-        Integer[] array = {7, 3, 123, 5, 99, 1, 8, 6, 2, 4};
+        Integer[] array = {7, 3, 123, 5, 95, 1, 8, 6, 2, 4};
         Deque<Integer> integerDeque = new ArrayDeque<>(10);
         for (Integer integer : array) {
             integerDeque.add(integer);
         }
-        Integer[] expected = {1, 2, 3, 4, 5, 6, 7, 8, 99, 123};
+        Integer[] expected = {1, 2, 3, 4, 5, 6, 7, 8, 95, 123};
         Integer[] actual = RadixSorter.radixSort(integerDeque, 3).toArray(array);
         System.out.println("Radix sorted actual: ");
         for (int i = 0; i < expected.length; i++) {
