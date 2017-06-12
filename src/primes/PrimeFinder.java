@@ -39,7 +39,7 @@ public class PrimeFinder {
      * @return true if prime, false if not
      */
     public static boolean isPrime(int positiveInteger) {
-        if (positiveInteger < 2 || positiveInteger%2 == 0) {
+        if ((positiveInteger < 2 || positiveInteger%2 == 0) && positiveInteger != 2) {
             return false;
         }
         double sqrtOfInteger = Math.sqrt(positiveInteger);
