@@ -1,4 +1,4 @@
-package dictionary;
+package datastructures;
 
 import java.util.Iterator;
 /**

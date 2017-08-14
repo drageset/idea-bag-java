@@ -1,4 +1,4 @@
-package dictionary;
+package datastructures;
 
 import primes.PrimeFinder;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class HashedSeparateChainingDictionary<K,V> implements DictionaryInterfac
 
     List<List<TableEntry<K,V>>> hashTable;
     private static final int DEFAULTSIZE = 97; //97 is a prime, so it's a good default size for hash functions using size
-    private static final double LOADFACTOR = 0.5;
+    private static final double LOADFACTOR = 0.5; //The maximum elements/size value before expanding the table.
     int size;
     int currentNumOfEntries;
 
