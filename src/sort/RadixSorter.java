@@ -37,7 +37,7 @@ class RadixSorter {
             while (element != null) {
                 int sortingDigit = (element / currentDigitBeingSorted) % 10; //retrieves the digit that the number is to be sorted by this iteration
                 buckets[sortingDigit].add(element);
-                //	buckets[(element /currentDigitBeingSorted)%10].add(element); //the same as above but in compact form
+                //	buckets[(element/currentDigitBeingSorted)%10].add(element); //the same as above but in compact form
                 element = queue.poll();
             }
             currentDigitBeingSorted *= 10; // move up to the next digit towards the left

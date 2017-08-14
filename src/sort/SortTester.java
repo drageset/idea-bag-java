@@ -2,8 +2,7 @@ package sort;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -14,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SortTester {
 
     @Test
-    public void recursiveRadixSortTest() {
+    public void RadixSortTest() {
         Integer[] array = {7, 3, 123, 5, 95, 1, 8, 6, 2, 4};
         Deque<Integer> integerDeque = new ArrayDeque<>(10);
         for (Integer integer : array) {
@@ -31,6 +30,36 @@ public class SortTester {
             assertEquals(expected[i], actual[i]);
         }
 
+    }
+
+    /**
+     * testing and printing time usage of both sorting and planning individually
+     */
+    @Test
+    public void radixTimeUsageTest() {
+        int maxLength = 5;
+        int upperBound = (int) Math.pow(10, maxLength);
+        int numOfElements = 100;
+        int numOfIterations = 100000;
+        double totalTime = 0;
+        double averageTime;
+
+        for (int i = 0; i < numOfIterations; i++) {
+            Queue<Integer> integerQueue = new ArrayDeque<>();
+            for (int j = 0; j < numOfElements; j++) {
+                int number = (int) (Math.random() * upperBound);
+                integerQueue.add(number);
+            }
+            long startTime = System.nanoTime();
+            Queue<Integer> sorted = Sorter.radixSort(integerQueue, maxLength);
+            long endTime = System.nanoTime();
+            long sortTime = endTime - startTime;
+            System.out.println(sortTime + " nanosecs to sort " + numOfElements + " elements");
+            totalTime += sortTime;
+        }
+        averageTime = totalTime/numOfIterations;
+        System.out.println("Radix sort AVG time: " + averageTime/1000 + " millis average. " + numOfIterations + " iterations. " + numOfElements + " elements. " + upperBound + " upperBound.");
+        assert true;
     }
 
     @Test

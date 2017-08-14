@@ -19,12 +19,12 @@ public class Sorter {
      * Time complexity of Radix sort is proportional to k*n,
      * where k is max length of integers, and n is amount of integers.
      *
-     * @param deque that is to be radix sorted.
+     * @param queue that is to be radix sorted.
      * @param maxLength of the integers in the deque.
      * @return a sorted deque.
      */
-    public static Queue<Integer> radixSort(Queue<Integer> deque, int maxLength){
-        return RadixSorter.radixSort(deque, maxLength);
+    public static Queue<Integer> radixSort(Queue<Integer> queue, int maxLength){
+        return RadixSorter.radixSort(queue, maxLength);
     }
 
     /**
