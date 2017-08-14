@@ -2,6 +2,7 @@ import java.lang.reflect.Array;
 
 /**
  * Contains utility functions
+ * @author drageset
  */
 public class Utilities {
 

@@ -1,11 +1,12 @@
 package sort;
 
 import java.util.Arrays;
-import java.util.Deque;
+import java.util.Queue;
 
 /**
  * This class lets the user access the functionality of all the sorting classes in the sort package
  * as simply as possible.
+ * @author drageset
  */
 public class Sorter {
 
@@ -18,12 +19,12 @@ public class Sorter {
      * Time complexity of Radix sort is proportional to k*n,
      * where k is max length of integers, and n is amount of integers.
      *
-     * @param deque that is to be radix sorted.
+     * @param queue that is to be radix sorted.
      * @param maxLength of the integers in the deque.
      * @return a sorted deque.
      */
-    public static Deque<Integer> radixSort(Deque<Integer> deque, int maxLength){
-        return RadixSorter.radixSort(deque, maxLength);
+    public static Queue<Integer> radixSort(Queue<Integer> queue, int maxLength){
+        return RadixSorter.radixSort(queue, maxLength);
     }
 
     /**
@@ -65,5 +66,25 @@ public class Sorter {
      */
     public static <T extends Comparable<? super T>> T[] bubbleSort(T[] array) {
         return BubbleSorter.iterativeBubbleSort(array);
+    }
+
+    /**
+     * Performs an insertion sort on the array of comparable objects given
+     * @param array of comparable objects
+     * @param <T> extends comparable ? super T
+     * @return sorted array
+     */
+    public static <T extends Comparable<? super T>> T[] insertionSort(T[] array){
+        return InsertionSorter.insertionSort(array);
+    }
+
+    /**
+     * Performs a selection sort on the array of comparable objects given
+     * @param array of comparable objects
+     * @param <T> extends comparable ? super T
+     * @return sorted array
+     */
+    public static <T extends Comparable<? super T>> T[] selectionSort(T[] array){
+        return SelectionSorter.selectionSort(array);
     }
 }

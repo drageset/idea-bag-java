@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 
 /**
  * A console app for calculating factorials of non-negative integers supplied by the user.
+ * @author drageset
  */
 public class FactorialFinder {
     public static void main(String[] args) {
